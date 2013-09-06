@@ -1,0 +1,13 @@
+G/_0_=Benutzerrolle
+G/_1_=Deutsch
+G/_2_=Normaler Benutzer
+G/_3_=Superverwalter
+G/_4_=BenutzerdefinierteRolle 1
+G/_5_=BenutzerdefinierteRolle 2
+G/_6_=BenutzerdefinierteRolle 3
+G/_7_=Rolle ermöglichen
+G/_8_=Name
+G/_9_=Benutzerrolle definieren
+G/_10_=Auf Normal zurücksetzen,sicher?
+G/_11_=Bitte erst Superverwalter registrieren.
+G/_12_=Bitte Benutzerrolle zuweisen

@@ -1,0 +1,13 @@
+V/_0_=Vai trò người dùng
+V/_1_=Tiếng Anh
+V/_2_=Người sử dụng
+V/_3_=Quản trị cấp cao
+V/_4_=Tùy chỉnh người sử dụng 1
+V/_5_=Tùy chỉnh người sử dụng 1
+V/_6_=Tùy chỉnh người sử dụng 3
+V/_7_=Kích hoạt vai trò xác định
+V/_8_=Tên
+V/_9_=Xác định vai trò người dùng
+V/_10_=Thiết lập về người sử dụng bình thường, bạn có chắc chắn?
+V/_11_=Vui lòng đăng ký quyền quản trị cao cấp trước.
+V/_12_=Vui lòng định nghĩa vai trò người dùng

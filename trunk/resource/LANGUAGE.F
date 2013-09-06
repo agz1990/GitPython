@@ -1,0 +1,13 @@
+F/_0_=Rôle d'utilis.
+F/_1_=French
+F/_2_=Utilisateur normal
+F/_3_=Super Admin
+F/_4_=Rôle défini pour l'utilis. 1
+F/_5_=Rôle défini pour l'utilis. 2
+F/_6_=Rôle défini pour l'utilis. 3
+F/_7_=Activer rôle défini
+F/_8_=Nom
+F/_9_=Définir rôle de l'utilis.
+F/_10_=Remise à l'utilisateur normal, vous êtes sûr?
+F/_11_=Svp inscr. Super admin prem.
+F/_12_=S'il vous plaît attribuer le rôle de l'utilisateur

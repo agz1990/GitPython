@@ -1,0 +1,29 @@
+
+NEWS
+====
+
+DEVELOPMENT STOPPED - 03.01.2011
+
+Version 0.1.4 - 21.01.2011
+
+* bugfix: resolved problems for reading formulas in xlrd3.sheet.read() function
+
+Version 0.1.3 - 18.01.2011
+
+* bugfixes from Laurent Mazuel
+
+Version 0.1.2 - 08.12.2010
+
+* beta release
+* in XFCell renamed 'colour' -> 'color'
+
+Version 0.1.1 - 05.12.2010
+
+* added more tests
+* BUG fixed: error on reading floating point numbers
+* added XFCell, an extented Cell() class
+
+Version 0.1.0 - 03.12.2010
+
+* first alpha release
+
