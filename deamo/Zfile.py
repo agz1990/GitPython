@@ -8,7 +8,6 @@ Created on 2013年9月6日
 import zipfile
 import os.path
 
-
 class ZFile(object):
     def __init__(self, filename, mode = 'r', basedir = ''):
         self.filename = filename

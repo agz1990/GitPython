@@ -1,0 +1,20 @@
+
+NEWS
+====
+
+Version 0.1.2 - 19.04.2011
+
+* fixed str/byte error in biffrecords.py
+
+**DEVELOPMENT STOPPED** - 03.01.2011
+
+I doubt that there will ever be a stable version of xlwt3.
+
+* added more tests
+* all module names changed to lower-case names
+* formula parsing related modules moved to the subpackage 'xlwt3.excel'.
+
+Version 0.1.0 - 05.12.2010
+
+* first release - alpha version
+

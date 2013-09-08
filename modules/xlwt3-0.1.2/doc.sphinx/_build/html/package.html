@@ -1,0 +1,156 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Package Contents &mdash; xlwt3 v0.1.1 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="xlwt3 v0.1.1 documentation" href="index.html" />
+    <link rel="next" title="The Workbook Object" href="workbook.html" />
+    <link rel="prev" title="Welcome to xlwt3’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="workbook.html" title="The Workbook Object"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to xlwt3’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">xlwt3 v0.1.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="package-contents">
+<h1>Package Contents<a class="headerlink" href="#package-contents" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="easyxf">
+<tt class="descname">easyxf</tt><big>(</big><em>strg_to_parse=&quot;&quot;</em>, <em>num_format_str=None</em>, <em>field_sep=&quot;</em>, <em>&quot;</em>, <em>line_sep=&quot;;&quot;</em>, <em>intro_sep=&quot;:&quot;</em>, <em>esc_char=&quot;\&quot;</em>, <em>debug=False</em><big>)</big><a class="headerlink" href="#easyxf" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is used to create and configure XFStyle objects
+for use with (for example) the Worksheet.write method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>strg_to_parse</strong> (<em>str</em>) &#8211; <p>A string to be parsed to obtain attribute values for Alignment, Borders, Font,
+Pattern and Protection objects. Refer to the examples
+in the file .../examples/xlwt_easyxf_simple_demo.py and to the xf_dict
+dictionary in Style.py. Various synonyms including color/colour, center/centre and gray/grey
+are allowed. Case is irrelevant (except maybe in font names). &#8216;-&#8216; may be used instead
+of &#8216;_&#8217;.</p>
+<blockquote>
+Example: <tt class="docutils literal"><span class="pre">&quot;font:</span> <span class="pre">bold</span> <span class="pre">on;</span> <span class="pre">align:</span> <span class="pre">wrap</span> <span class="pre">on,</span> <span class="pre">vert</span> <span class="pre">centre,</span> <span class="pre">horiz</span> <span class="pre">center&quot;</span></tt></blockquote>
+</li>
+<li><strong>num_format_str</strong> (<em>str</em>) &#8211; <p>To get the &#8220;number format string&#8221; of an existing cell whose format you want to reproduce,
+select the cell and click on Format/Cells/Number/Custom. Otherwise, refer to Excel help.</p>
+<blockquote>
+Example: <tt class="docutils literal"><span class="pre">&quot;#,##0.00&quot;,</span> <span class="pre">&quot;dd/mm/yyyy&quot;</span></tt></blockquote>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A <tt class="xref py py-class docutils literal"><span class="pre">XFStyle</span></tt> object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><tt class="descname">Workbook</tt></dt>
+<dd><p>The class to instantiate to create a workbook</p>
+<p>For more information about this class, see <a class="reference internal" href="workbook.html#Workbook" title="Workbook"><tt class="xref py py-class docutils literal"><span class="pre">Workbook</span></tt></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><tt class="descname">Worksheet</tt></dt>
+<dd><p>A class to represent the contents of a sheet in a workbook.</p>
+<p>For more information about this class, see <a class="reference internal" href="worksheet.html#Worksheet" title="Worksheet"><tt class="xref py py-class docutils literal"><span class="pre">Worksheet</span></tt></a></p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to xlwt3&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="workbook.html"
+                        title="next chapter">The Workbook Object</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/package.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="workbook.html" title="The Workbook Object"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to xlwt3’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">xlwt3 v0.1.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  </body>
+</html>

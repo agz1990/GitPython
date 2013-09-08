@@ -1,0 +1,143 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Worksheet Class &mdash; xlwt3 v0.1.1 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="xlwt3 v0.1.1 documentation" href="index.html" />
+    <link rel="prev" title="The Workbook Object" href="workbook.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="workbook.html" title="The Workbook Object"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">xlwt3 v0.1.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="the-worksheet-class">
+<h1>The Worksheet Class<a class="headerlink" href="#the-worksheet-class" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Worksheet">
+<em class="property">class </em><tt class="descname">Worksheet</tt><big>(</big><em>sheetname</em>, <em>parent_book</em><big>)</big><a class="headerlink" href="#Worksheet" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a class representing the contents of a sheet in a workbook.</p>
+</dd></dl>
+
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">You don&#8217;t normally create instances of this class
+yourself. They are returned from calls to <a class="reference internal" href="workbook.html#Workbook.add_sheet" title="Workbook.add_sheet"><tt class="xref py py-meth docutils literal"><span class="pre">Workbook.add_sheet()</span></tt></a></p>
+</div>
+<dl class="method">
+<dt id="Worksheet.write">
+<tt class="descclassname">Worksheet.</tt><tt class="descname">write</tt><big>(</big><em>r</em>, <em>c</em>, <em>label=&quot;&quot;</em>, <em>style=Style.default_style</em><big>)</big><a class="headerlink" href="#Worksheet.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to write a cell to a Worksheet..</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>r</strong> (<em>int</em>) &#8211; The zero-based number of the row in the worksheet to which the cell should be written.</li>
+<li><strong>c</strong> (<em>int</em>) &#8211; The zero-based number of the column in the worksheet to which the cell should be written.</li>
+<li><strong>label</strong> (<em>str</em>) &#8211; The data value to be written.
+An int, long, or decimal.Decimal instance is converted to float.
+A unicode instance is written as is.
+A str instance is converted to unicode using the encoding (default: &#8216;ascii&#8217;) specified
+when the Workbook instance was created.
+A datetime.datetime, datetime.date, or datetime.time instance is converted into Excel date format
+(a float representing the number of days since (typically) 1899-12-31T00:00:00,
+under the pretence that 1900 was a leap year).
+A bool instance will show up as TRUE or FALSE in Excel.
+None causes the cell to be blank &#8211; no data, only formatting.
+An <tt class="xref py py-class docutils literal"><span class="pre">Formula</span></tt> instance causes an Excel formula to be written.</li>
+<li><strong>style</strong> &#8211; A style &#8211; also known as an XF (extended format) &#8211; is an XFStyle object, which encapsulates
+the formatting applied to the cell and its contents. XFStyle objects are best set up using the
+<a class="reference internal" href="package.html#easyxf" title="easyxf"><tt class="xref py py-func docutils literal"><span class="pre">easyxf()</span></tt></a> function. They may also be set up by setting attributes in
+Alignment, Borders, Pattern, Font and Protection objects
+then setting those objects and a format string as attributes of an XFStyle object.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="workbook.html"
+                        title="previous chapter">The Workbook Object</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/worksheet.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="workbook.html" title="The Workbook Object"
+             >previous</a> |</li>
+        <li><a href="index.html">xlwt3 v0.1.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,172 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Workbook Object &mdash; xlwt3 v0.1.1 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="xlwt3 v0.1.1 documentation" href="index.html" />
+    <link rel="next" title="The Worksheet Class" href="worksheet.html" />
+    <link rel="prev" title="Package Contents" href="package.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="worksheet.html" title="The Worksheet Class"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="package.html" title="Package Contents"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">xlwt3 v0.1.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="the-workbook-object">
+<h1>The Workbook Object<a class="headerlink" href="#the-workbook-object" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Workbook">
+<em class="property">class </em><tt class="descname">Workbook</tt><big>(</big><em>encoding='ascii'</em>, <em>style_compression=0</em><big>)</big><a class="headerlink" href="#Workbook" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a class representing a workbook and all its contents.
+When creating Excel files with xlwt, you will normally start by
+instantiating an object of this class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>encoding</strong> (<em>str</em>) &#8211; standard python encoding identifier</li>
+<li><strong>style_compression</strong> (<em>int</em>) &#8211; <p>???</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Workbook.add_sheet">
+<tt class="descclassname">Workbook.</tt><tt class="descname">add_sheet</tt><big>(</big><em>sheetname</em><big>)</big><a class="headerlink" href="#Workbook.add_sheet" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to create Worksheets in a Workbook.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sheetname</strong> (<em>str</em>) &#8211; The name to use for this sheet, as it will appear in the tabs at
+the bottom of the Excel application.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="worksheet.html#Worksheet" title="Worksheet"><tt class="xref py py-class docutils literal"><span class="pre">Worksheet</span></tt></a> object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Workbook.save">
+<tt class="descclassname">Workbook.</tt><tt class="descname">save</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#Workbook.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to save Workbook to a file in native Excel format.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filename</strong> &#8211; <p>This can be a string containing a filename of the file, in which case
+the excel file is saved to disk using the name provided.</p>
+<p>It can also be a stream object with a write method, such as a
+StringIO, in which case the data for the excel file is written
+to the stream.</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="package.html"
+                        title="previous chapter">Package Contents</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="worksheet.html"
+                        title="next chapter">The Worksheet Class</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/workbook.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="worksheet.html" title="The Worksheet Class"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="package.html" title="Package Contents"
+             >previous</a> |</li>
+        <li><a href="index.html">xlwt3 v0.1.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  </body>
+</html>
