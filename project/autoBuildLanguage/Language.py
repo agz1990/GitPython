@@ -3,10 +3,14 @@ Created on 2013年9月7日
 
 @author: agz
 '''
+
+from autoBuildLanguage import NewArchRules as Rules
 import excelPack
 import os
 import string
-import Rules
+from string import Template
+eEncode = Template('*** ***')
+eFormat = Template('*** ***')
 
 class LangageObj():
     def __init__(self, xlsObj, encodingMap, \
@@ -40,7 +44,8 @@ class LangageObj():
             key = 'S'
             key = cloObj[10][0]
             if key not in self.keymap:
-                self.hint = ('\n\t *** Warning col:%c  Discover a empty col ! ****') % (chr(self.col))
+                self.hint = ('\n\t *** Warning col:%c  Discover a empty col ! ****') \
+                % (chr(self.col))
                 return Error
 
             self.key = key
@@ -49,7 +54,8 @@ class LangageObj():
             return True
 
         except IndexError:  # 无效列处理
-            self.hint = ('\n\t *** Warning col:%c  Discover a empty col ! ****') % (chr(self.col))
+            self.hint = ('\n\t *** Warning col:%c  Discover a empty col ! ****')\
+             % (chr(self.col))
             return Error
 
     # 检查一行数据的有效性
@@ -65,14 +71,16 @@ class LangageObj():
         schLine = self.ChieseCol[self.row - 1]
         if self.checkFormat(aline) is True:
             if schLine in self.delmap:  # 排除 Map 中的项
-                self.hint = '-*- Warning 【%c:%04d】   exclude 【%s】 -*-' % (chr(self.col), self.row, aline)
+                self.hint = '-*- Warning 【%c:%04d】   exclude 【%s】 -*-'\
+                 % (chr(self.col), self.row, aline)
                 return False
             # 字符串有效
             line = aline + os.linesep
             try:
                 return line.encode(self.encodType)  # 把 utf-8 格式转化成指定编码
             except UnicodeEncodeError:
-                self.hint = '*** Error 【%c:%04d】  Coding %s 【%s】 ***' % (chr(self.col), self.encodType, aline[0:aline.find('=')])
+                self.hint = '*** Error 【%c:%04d】  Coding %s 【%s】 ***'\
+                 % (chr(self.col), self.encodType, aline[0:aline.find('=')])
                 return False
         elif schLine in self.appmap:  # 生成路径控制数据不做处理
             self.hint = ''
@@ -84,7 +92,8 @@ class LangageObj():
             self.hint = ''
             return False
         else:
-            self.hint = '*** Error 【%c:%04d】  Format error  【%s】 ***' % (chr(self.col), self.row, aline)
+            self.hint = '*** Error 【%c:%04d】  Format error  【%s】 ***' \
+            % (chr(self.col), self.row, aline)
             return False
 
     def upDadeFileObj(self, aline):
@@ -212,6 +221,6 @@ def compareXbojs(xls1, xls2, key='S'):
 
 
 if __name__ == '__main__':
-#     main()
-    testCmp()
+    main()
+#     testCmp()
     pass
