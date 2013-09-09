@@ -4,21 +4,21 @@ Created on 2013年9月6日
 @author: hp41
 '''
 
-from autoBuildLanguage import Rules
+import DefaultRules as Rules
 import excelPack
 import os
 import string
 
 sub_dir = 'lang\\'
-xlsObj = {'xls'       :'None',  # 当前操作的 xls对象
-        'key'       :'None',  # 当前语言key值
-        'encodType' :'None',  # 当前文件对象编码格式
-        'curFile'   :'None',  # 当前文件名称
-        'col'       :0,  # 当前操作的行
-        'row'       :0,  # 当前操作的列
+xlsObj = {'xls'       :'None',   # 当前操作的 xls对象
+        'key'       :'None',   # 当前语言key值
+        'encodType' :'None',   # 当前文件对象编码格式
+        'curFile'   :'None',   # 当前文件名称
+        'col'       :0,   # 当前操作的行
+        'row'       :0,   # 当前操作的列
         'preLine'   :'None',
         'curLine'   :'None',
-        'hint'      :''  # 提示信息
+        'hint'      :''   # 提示信息
         }
 
 def xlsObjPrint(hint):
@@ -36,11 +36,11 @@ def GetColDetail(cloObj):
 #         print(cloObj[10])
         if key in Rules.CodeingMap:
                 # 组装文件名
-                if key in string.ascii_lowercase:  # 小写key要添加 sub_dir 路径
+                if key in string.ascii_lowercase:   # 小写key要添加 sub_dir 路径
                     fname = sub_dir + 'LANGEUAGE.' + key
                 else:
                     fname = 'LANGEUAGE.' + key
-        else:  # 无效Key 值
+        else:   # 无效Key 值
             xlsObj['hint'] = ('*** Warning col:%2d  Discover a empty col ! ****') % (xlsObj['col'])
             return Error
 
@@ -48,20 +48,26 @@ def GetColDetail(cloObj):
         xlsObj['encodType'] = Rules.CodeingMap[key]
         xlsObj['curFile'] = fname
         return True
-    except IndexError:  # 无效列处理
+    except (IndexError, TypeError):   # 无效列处理
         xlsObj['hint'] = ('*** Warning col:%2d  Discover a empty col ! ****') % (xlsObj['col'])
         return Error
 
 def checkAndEncodingOneLine(aline, key, encodeType='utf-8'):
     head = key + '/_'
-    aline = aline.strip(string.whitespace)
     Error = None
+    if isinstance(aline, str):
+        aline = aline.strip(string.whitespace)
+    else:
+        xlsObj['hint'] = '*** Error 【%c:%04d】  Format error 【%d】 ***' % (xlsObj['col'], xlsObj['row'], aline)
+        return Error
+        
+    
     if aline.startswith(head) is True:
         line = aline + endline
         try:
-            return line.encode(encodeType)  # 把 utf-8 格式转化成指定编码
+            return line.encode(encodeType)   # 把 utf-8 格式转化成指定编码
         except UnicodeEncodeError:
-            xlsObj['hint'] = '*** Error 【%c:%04d】  Coding %s 【%s】 ***' % (xlsObj['col'], xlsObj['row'], encodeType, aline[0:aline.find('=')])
+            xlsObj['hint'] = '*** Error 【%c:%04d】  Coding %s 【%s】 ***' % (xlsObj['col'], xlsObj['row'], encodeType, aline)
             return Error
     elif len(aline) == 0:
         xlsObj['hint'] = ''
@@ -87,8 +93,10 @@ def buildOne(cloObj, dest_dir='.\language'):
         fboj = open(os.path.join(dest_dir, fname), 'bw')
         for aline in cloObj:
             xlsObj['row'] = xlsObj['row'] + 1
-            try:  # 检查文件数据有效性
+            try:   # 检查文件数据有效性
+                
                 fboj.write(checkAndEncodingOneLine(aline, key, encodeType))
+#                 print(">> ", aline)
             except TypeError:
                 xlsObjPrint(xlsObj['hint'])
                 continue
