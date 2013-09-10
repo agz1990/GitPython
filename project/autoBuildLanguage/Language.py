@@ -17,20 +17,20 @@ class LangageObj():
     def __init__(self, xlsObj, encodingMap, \
                  destPath='.', AppMap={'中文':''}, ExclueMap=[]):
         self.xls = xlsObj
-        self.keymap = encodingMap   # 获取 编码格式对应表
-        self.appmap = AppMap   # 获取要生成文件的对应表
-        self.delmap = ExclueMap   # 不同平台需要排除的字段表
-        self.encodType = 'utf-8'   # 当前语言的编码格式
-        self.curFileName = ''   # 当前语言的文件名字
-        self.curFileObj = None   # 生成当前文件的操作句柄
-        self.key = ''   # 当前语言的  key 值
-        self.col = 65   # 程序运行实时列数 （A）
-        self.row = 0   # 程序运行实时行数
-        self.preLine = ''   # 上一个有效行
-        self.curline = ''   # 当前行
-        self.hint = ''   # 全局提示
-        self.dest = destPath   # 目标生成目标路径
-        self.subdir = 'lang'   # 小写  key 语言的存放路径前缀
+        self.keymap = encodingMap  # 获取 编码格式对应表
+        self.appmap = AppMap  # 获取要生成文件的对应表
+        self.delmap = ExclueMap  # 不同平台需要排除的字段表
+        self.encodType = 'utf-8'  # 当前语言的编码格式
+        self.curFileName = ''  # 当前语言的文件名字
+        self.curFileObj = None  # 生成当前文件的操作句柄
+        self.key = ''  # 当前语言的  key 值
+        self.col = 65  # 程序运行实时列数 （A）
+        self.row = 0  # 程序运行实时行数
+        self.preLine = ''  # 上一个有效行
+        self.curline = ''  # 当前行
+        self.hint = ''  # 全局提示
+        self.dest = destPath  # 目标生成目标路径
+        self.subdir = 'lang'  # 小写  key 语言的存放路径前缀
         self.ChieseCol = self.getRolByKey('S')
 
     def xprint(self):
@@ -54,7 +54,7 @@ class LangageObj():
             self.curFileName = 'LANGUAGE.' + self.key
             return True
 
-        except IndexError:   # 无效列处理
+        except IndexError:  # 无效列处理
             self.hint = ('\n\t *** Warning col:%c  Discover a empty col ! ****')\
              % (chr(self.col))
             return Error
@@ -73,29 +73,29 @@ class LangageObj():
         else:
             self.hint = '*** Error 【%c:%04d】  Format error  【%d】 ***' \
             % (chr(self.col), self.row, aline)
-            return False  
-         
+            return False
+
         schLine = self.ChieseCol[self.row - 1]
         if self.checkFormat(aline) is True:
-            if schLine in self.delmap:   # 排除 Map 中的项
+            if schLine in self.delmap:  # 排除 Map 中的项
                 self.hint = '-*- Warning 【%c:%04d】   exclude 【%s】 -*-'\
                  % (chr(self.col), self.row, aline)
                 return False
             # 字符串有效
             line = aline + os.linesep
             try:
-                return line.encode(self.encodType)   # 把 utf-8 格式转化成指定编码
+                return line.encode(self.encodType)  # 把 utf-8 格式转化成指定编码
             except UnicodeEncodeError:
                 self.hint = '*** Error 【%c:%04d】  Coding %s 【%s】 ***'\
                  % (chr(self.col), self.encodType, aline[0:aline.find('=')])
                 return False
-        elif schLine in self.appmap:   # 生成路径控制数据不做处理
+        elif schLine in self.appmap:  # 生成路径控制数据不做处理
             self.hint = ''
             return False
-        elif len(schLine) == 0 :   # 忽略无效行
+        elif len(schLine) == 0 :  # 忽略无效行
             self.hint = ''
             return False
-        elif self.checkFormat(schLine, 'S') is False:   # 排除中文无效项目对应的项
+        elif self.checkFormat(schLine, 'S') is False:  # 排除中文无效项目对应的项
             self.hint = ''
             return False
         else:
@@ -108,13 +108,13 @@ class LangageObj():
 #         print(cell)
         if cell in self.appmap:
             try:
-                self.curFileObj.close()   # 关闭前一个文件
+                self.curFileObj.close()  # 关闭前一个文件
 #                 print(' ***  Close a file : 【%c:%04d】  *** '%(chr(self.col),self.row))
             except AttributeError:
-                pass   # 忽略第一个打开
+                pass  # 忽略第一个打开
 
             # 组装文件名
-            if self.key in string.ascii_lowercase:   # 小写key要添加 sub_dir 路径
+            if self.key in string.ascii_lowercase:  # 小写key要添加 sub_dir 路径
                 finalPath = os.path.join(self.dest, self.appmap[cell], self.subdir)
             else:
                 finalPath = os.path.join(self.dest, self.appmap[cell])
@@ -145,14 +145,14 @@ class LangageObj():
             print('\nExcelfile: %s============\n\t Discover a valid  col: %c  key: LANGUAGE.%s' % (self.xls, chr(self.col), self.key))
             for aline in cloObj:
                 self.row = self.row + 1
-                self.upDadeFileObj(self.ChieseCol[self.row - 1])   # 通过中文列 获取需要生成文件的目标
-                try:   # 检查文件数据有效性
+                self.upDadeFileObj(self.ChieseCol[self.row - 1])  # 通过中文列 获取需要生成文件的目标
+                try:  # 检查文件数据有效性
                     self.curFileObj.write(self.checkAndEncodingOneLine(aline))
 #                     print('\t\t>> ', aline)
                 except TypeError:
                     self.xprint();
                     continue
-                except AttributeError :   # 忽略文件第一次中文列表，一开始内容  不在  self.appmap 的情况
+                except AttributeError :  # 忽略文件第一次中文列表，一开始内容  不在  self.appmap 的情况
                     continue
             self.row = 0
     def buildOneExcelFile(self, keys=None, sheetIndex=0):
@@ -190,12 +190,12 @@ def main():
 def testCmp():
     xobj2 = LangageObj(r'D:\项目\新架构语言项目\自动生成语言包项目\LANGUAGE.xls', Rules.CodeingMap)
     xobj1 = LangageObj(r'D:\项目\新架构语言项目\自动生成语言包项目\LANGUAGE20130909.R0.xls', Rules.CodeingMap)
-    compareXbojs(xobj1, xobj2, 'R')
+    compareXbojs(xobj1, xobj2, 'I')
 
 # 必须保证中文是不修改的情况下进行对比，默认比较中文
 def compareXbojs(xls1, xls2, key='S'):
 
-    iRow = 1
+    iRow = 0
     iCnt = 1
     print('\n\n**************')
     if key not in 'ST':
@@ -205,14 +205,16 @@ def compareXbojs(xls1, xls2, key='S'):
         for iSCH in ChineseCol:
             try:
                 if keyCol1[iRow] != keyCol2[iRow]:
-                    print('%2d:中文  【%s】   R:%3d -- 原 :【%s】  ==>【%s】  '\
-                          % (iCnt, iSCH, iRow, keyCol1[iRow], keyCol2[iRow]))
+                    print('%2d:中文  【%s】   %c:%03d -- 【%s】 < == 原 :【%s】  '\
+                          % (iCnt, iSCH, key, iRow, keyCol2[iRow], keyCol1[iRow]))
+#                     print('%c%03d\t%s\t%s\t%s'\
+#                           % (key, iRow, iSCH, keyCol1[iRow], keyCol2[iRow]))
                     iCnt += 1
             except IndexError:
                 print('**************')
                 continue
             iRow += 1
-    else:   # 简体中文与繁体中文不需要参考
+    else:  # 简体中文与繁体中文不需要参考
         keyCol1 = xls1.getRolByKey(key)
         keyCol2 = xls2.getRolByKey(key)
         for iSCH in keyCol1:
@@ -225,6 +227,7 @@ def compareXbojs(xls1, xls2, key='S'):
                 print('**************')
                 continue
             iRow += 1
+    print('**************')
 
 if __name__ == '__main__':
 #     main()
