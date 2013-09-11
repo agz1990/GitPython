@@ -3,9 +3,11 @@ Created on 2013年9月10日
 
 @author: agz
 '''
+from urllib.request import urlretrieve
 import re
 import time
-def tsfunc(func, *nkwargs, **kwargs):
+
+def timeit(func, *nkwargs, **kwargs):
     def wrappedFunc():
         tms = time.clock()
         print('%s()called start...' % (func.__name__))
@@ -25,11 +27,12 @@ def testit(func, *nkwargs, **kwargs):
     return result
 
 
-@tsfunc
+@timeit
 def foo():
     time.sleep(5)
     pass
-@tsfunc
+
+@timeit
 def test():
     funcs = (int, float)
     vals = (1234, 12.34, '1234', '12.34')
@@ -42,14 +45,16 @@ def test():
             else:
                 print('%s(%s) = FAILED:' % (eachFunc.__name__, repr(eachVal)), retval[1])
 
-@tsfunc
+
+
+@timeit
 def tesre():
     i = 0
     while (i < 1000000):
         i += 1
         lan = re.match(r'''
                             ^(?P<key>[A-Za-z])    # 匹配键值
-                            /_(?P<num>\d+)_=      # 匹配中间字符 
+                            /_(?P<num>\d+)_=      # 匹配中间字符
                             (?P<value>.+)         # 匹配字段值
                         ''', 'S/_11_=取消', re.X)
 
@@ -60,6 +65,22 @@ def tesre():
         if lan2 is True:
             continue
 
+
+@timeit
+def grabWeb(url='http://www.comptechdoc.org/os/linux/programming/script/linux_pgscriptvariables.html', process=None):
+    try:
+        retval = urlretrieve(url)[0]
+    except IOError:
+        retval = None
+    if retval:
+        f = open(retval)
+        for line in f:
+            print('>>', line)
+
+    time.sleep(1)
+    pass
+
 if __name__ == '__main__':
-    tesre()
+#     tesre()
+    grabWeb()
     pass

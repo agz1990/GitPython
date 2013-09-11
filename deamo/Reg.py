@@ -10,12 +10,12 @@ def reTest():
     m = re.match(r'(\w+) (\w+)(?P<sign>.*)', 'hello world!')
     lan = re.match(r'''
                         ^(?P<key>[A-Za-z])    # 匹配键值
-                        /_(?P<num>\d+)_=      # 匹配中间字符 
+                        /_(?P<num>\d+)_=      # 匹配中间字符
                         (?P<value>.+)         # 匹配字段值
                     ''', 'S/_11_=取消', re.X)
 
 
-    lan2 = re.search(r''' \s+|\s$''', 'S/_11_=取 消')  # 查询多余的空格
+    lan2 = re.search(r''' \s+|\s$''', 'A/_57_=فق     ط کارت')  # 查询多余的空格
     print()
     print("m.string:", m.string)
     print("m.re:", m.re)

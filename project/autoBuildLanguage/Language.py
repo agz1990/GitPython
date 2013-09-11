@@ -9,9 +9,26 @@ from autoBuildLanguage import NewArchRules as Rules
 from string import Template
 import excelPack
 import os
+import re
 import string
 eEncode = Template('*** ***')
 eFormat = Template('*** ***')
+
+
+# 检查一行数据的有效性
+def checkFormat(strline, key):
+    PCheckFormart = re.compile(r'''
+                    ^(?P<key>[A-Za-z])    # 匹配键值
+                    /_(?P<num>\d+)_=      # 匹配中间字符
+                    (?P<value>.+)         # 匹配字段值
+                ''', re.X)
+
+    if re.search(r''' \s+|\s$''', strline):  # 检查连续空格数据
+#             print(strline)
+        return None
+    if not PCheckFormart.match(strline):
+        return None
+    return True
 
 class LangageObj():
     def __init__(self, xlsObj, encodingMap, \
@@ -59,13 +76,8 @@ class LangageObj():
              % (chr(self.col))
             return Error
 
-    # 检查一行数据的有效性
-    def checkFormat(self, strline, key=None):
-        if key is not None:
-            head = key + '/_'
-        else:
-            head = self.key + '/_'
-        return strline.startswith(head)
+
+
     #
     def checkAndEncodingOneLine(self, aline):
         if isinstance(aline, str):
@@ -75,28 +87,29 @@ class LangageObj():
             % (chr(self.col), self.row, aline)
             return False
 
-        schLine = self.ChieseCol[self.row - 1]
-        if self.checkFormat(aline) is True:
+        schLine = self.ChieseCol[self.row - 1]  # 获取对应的中文列
+        self.hint = ''
+        if checkFormat(aline, self.key) is True:
+#             print("->>> ", aline)
+
             if schLine in self.delmap:  # 排除 Map 中的项
-                self.hint = '-*- Warning 【%c:%04d】   exclude 【%s】 -*-'\
+                self.hint = '\t### Warning 【%c:%04d】   exclude 【%s】 ###'\
                  % (chr(self.col), self.row, aline)
                 return False
+
             # 字符串有效
             line = aline + os.linesep
             try:
-                return line.encode(self.encodType)  # 把 utf-8 格式转化成指定编码
+                return  line.encode(self.encodType)  # 把 utf-8 格式转化成指定编码
             except UnicodeEncodeError:
-                self.hint = '*** Error 【%c:%04d】  Coding %s 【%s】 ***'\
-                 % (chr(self.col), self.encodType, aline[0:aline.find('=')])
+                self.hint = '*** Error 【%c:%04d】  Coding %s 【%s】 ***' % (chr(self.col), self.row, self.encodType, aline)
                 return False
+
         elif schLine in self.appmap:  # 生成路径控制数据不做处理
-            self.hint = ''
             return False
         elif len(schLine) == 0 :  # 忽略无效行
-            self.hint = ''
             return False
-        elif self.checkFormat(schLine, 'S') is False:  # 排除中文无效项目对应的项
-            self.hint = ''
+        elif not checkFormat(schLine, 'S') :  # 排除中文无效项目对应的项
             return False
         else:
             self.hint = '*** Error 【%c:%04d】  Format error  【%s】 ***' \
@@ -146,12 +159,14 @@ class LangageObj():
             for aline in cloObj:
                 self.row = self.row + 1
                 self.upDadeFileObj(self.ChieseCol[self.row - 1])  # 通过中文列 获取需要生成文件的目标
-                try:  # 检查文件数据有效性
-                    self.curFileObj.write(self.checkAndEncodingOneLine(aline))
-#                     print('\t\t>> ', aline)
-                except TypeError:
-                    self.xprint();
-                    continue
+                try:
+                    retVal = self.checkAndEncodingOneLine(aline)
+                    if retVal :
+                        self.curFileObj.write(retVal)
+#                         print('\t\t>> ', aline)
+                    else:
+                        self.xprint();
+                #
                 except AttributeError :  # 忽略文件第一次中文列表，一开始内容  不在  self.appmap 的情况
                     continue
             self.row = 0
@@ -230,6 +245,7 @@ def compareXbojs(xls1, xls2, key='S'):
     print('**************')
 
 if __name__ == '__main__':
-#     main()
-    testCmp()
+#     'A/_5_=محدوده زمانی'.encode(encoding='iso8859_6', errors='strict')
+    main()
+#     testCmp()
     pass

@@ -17,26 +17,27 @@ Created on 2013年9月8日
 # 波斯语                                                                                    阿拉伯文Windows
 
 LANGUAGE_S = 'gb2312'
-LANGUAGE_E = 'utf-8'   # 'cp1252'
-LANGUAGE_T = 'utf-8'   # 'big5'
-LANGUAGE_P = 'utf-8'   # 'cp1252'
-LANGUAGE_a = 'utf-8'   # 'cp1252'
-LANGUAGE_I = 'utf-8'   # 'cp1252'
-LANGUAGE_R = 'utf-8'   # 'cp1251'
-LANGUAGE_F = 'utf-8'   # 'cp1252'
+LANGUAGE_E = 'utf-8'  # 'cp1252'
+LANGUAGE_T = 'utf-8'  # 'big5'
+LANGUAGE_P = 'utf-8'  # 'cp1252'
+LANGUAGE_a = 'utf-8'  # 'cp1252'
+LANGUAGE_I = 'utf-8'  # 'cp1252'
+LANGUAGE_R = 'utf-8'  # 'cp1251'
+LANGUAGE_F = 'utf-8'  # 'cp1252'
 LANGUAGE_B = 'iso8859_6'
-LANGUAGE_G = 'utf-8'   # 'cp1252'
-LANGUAGE_t = 'utf-8'   # 'cp1254'
+LANGUAGE_G = 'utf-8'  # 'cp1252'
+LANGUAGE_t = 'utf-8'  # 'cp1254'
 LANGUGAE_L = 'utf-8'
 LANGUAGE_H = 'utf-8'
 LANGUAGE_V = 'utf-8'
+LANGUAGE_A = 'iso8859_6'
 
 # 工程路径配置:
-DESK_DIR = ''   # 当前系统桌面路径
-DEST_DIR = 'obj'   # 生成目标路径
-SUB_DIR = 'lang'   # 相对于 ‘DEST_DIR’ 小写语言的目标路径
+DESK_DIR = ''  # 当前系统桌面路径
+DEST_DIR = 'obj'  # 生成目标路径
+SUB_DIR = 'lang'  # 相对于 ‘DEST_DIR’ 小写语言的目标路径
 
-ValidKeys = None   # 要生成的语言 None 默认生成所有语言
+ValidKeys = None  # 要生成的语言 None 默认生成所有语言
 
 CodeingMap = {
             'S':LANGUAGE_S,
@@ -53,6 +54,7 @@ CodeingMap = {
             'L':LANGUGAE_L,
             'H':LANGUAGE_H,
             'V':LANGUAGE_V,
+            'A':LANGUAGE_A,
             }
 
 
