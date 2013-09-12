@@ -3,41 +3,32 @@ Created on 2013年9月8日
 
 @author: agz
 '''
-
-
-# 英语、法语、西班牙语、葡萄牙语、德语、意大利语        西欧Windows
-# 俄语                                                                                       西里尔文Windows
-# 阿拉伯语                                                                                 ASMO708
-# 中文                                                                                        简体中文（GB2312）
-# 繁体中文                                                                                 繁体中文（Big5）
-# 泰文                                                                                        泰文Windows
-# 越南语                                                                                    越南文Windows
-# 印尼语                                                                                    西欧Windows
-# 土耳其语                                                                                土耳其文Windows
-# 波斯语                                                                                    阿拉伯文Windows
+import Language as LOBJ
+import os.path
 
 LANGUAGE_S = 'gb2312'
-LANGUAGE_E = 'utf-8'  # 'cp1252'
-LANGUAGE_T = 'utf-8'  # 'big5'
-LANGUAGE_P = 'utf-8'  # 'cp1252'
-LANGUAGE_a = 'utf-8'  # 'cp1252'
-LANGUAGE_I = 'utf-8'  # 'cp1252'
-LANGUAGE_R = 'utf-8'  # 'cp1251'
-LANGUAGE_F = 'utf-8'  # 'cp1252'
+LANGUAGE_E = 'utf-8'   # 'cp1252'
+LANGUAGE_T = 'utf-8'   # 'big5'
+LANGUAGE_P = 'utf-8'   # 'cp1252'
+LANGUAGE_a = 'utf-8'   # 'cp1252'
+LANGUAGE_I = 'utf-8'   # 'cp1252'
+LANGUAGE_R = 'utf-8'   # 'cp1251'
+LANGUAGE_F = 'utf-8'   # 'cp1252'
 LANGUAGE_B = 'iso8859_6'
-LANGUAGE_G = 'utf-8'  # 'cp1252'
-LANGUAGE_t = 'utf-8'  # 'cp1254'
+LANGUAGE_G = 'utf-8'   # 'cp1252'
+LANGUAGE_t = 'utf-8'   # 'cp1254'
 LANGUGAE_L = 'utf-8'
-LANGUAGE_H = 'utf-8'
+LANGUAGE_H = 'iso8859_8'
 LANGUAGE_V = 'utf-8'
 LANGUAGE_A = 'iso8859_6'
 
 # 工程路径配置:
-DESK_DIR = ''  # 当前系统桌面路径
-DEST_DIR = 'obj'  # 生成目标路径
-SUB_DIR = 'lang'  # 相对于 ‘DEST_DIR’ 小写语言的目标路径
-
-ValidKeys = None  # 要生成的语言 None 默认生成所有语言
+DESK_DIR = r'C:\Users\hp41\Desktop'   # 当前系统桌面路径
+DEST_DIR = r'C:\Users\hp41\Desktop\arm.d'   # 生成目标路径
+SUB_DIR = 'lang'   # 相对于 ‘DEST_DIR’ 小写语言的目标路径
+DEST_FILE = r'D:\项目\新架构语言项目\自动生成语言包项目\LANGUAGE.xls'   # 生成语言的基准文件
+DEST_FILE_OLD = r'D:\项目\新架构语言项目\自动生成语言包项目\LANGUAGE20130909.R0.xls'   # 旧文件 比较用
+ValidKeys = None   # 要生成的语言 None 默认生成所有语言
 
 CodeingMap = {
             'S':LANGUAGE_S,
@@ -57,8 +48,18 @@ CodeingMap = {
             'A':LANGUAGE_A,
             }
 
+ExclueMap35 = [   #    3.5寸屏所需要排除的文件
+             'S/_16_=向右键切换输入法，向左键表示删除键',
+             'S/_100_=向左键',
+             'S/_101_=向右键',
+           ]
+ExclueMap30 = [   #    3.0寸屏所需要排除的文件
+             'S/_16_=*键切换输入法,#键输入空格',
+             'S/_100_=*',
+             'S/_101_=#',
+             ]
 
-AppMap = {
+AppMap = {   # APP 对应生成路径
         '主界面（main）': r'app\main\language',
         '主菜单（menu）': r'app\mginit\language',
         '用户管理（APP）': r'app\usermng\language',
@@ -88,24 +89,104 @@ AppMap = {
         '用户门禁权限so库（so库）': r'lib\app\libuseraccprivilege\language',
         }
 
-ExclueMap35 = [
-             'S/_16_=向右键切换输入法，向左键表示删除键',
-             'S/_100_=向左键',
-             'S/_101_=向右键',
+def CmpLanguage(xlsNew, xlsOld, keys):
+    xobjNew = LOBJ.LangageObj(xlsNew, CodeingMap)
+    xobjOld = LOBJ.LangageObj(xlsOld, CodeingMap)
+    for key in keys:
+        compareXbojs(xobjOld, xobjNew, key)
 
-           ]
-ExclueMap30 = [
-             'S/_16_=*键切换输入法,#键输入空格',
-             'S/_100_=*',
-             'S/_101_=#',
-             ]
+# 必须保证中文是不修改的情况下进行对比，默认比较中文
+def compareXbojs(xls1, xls2, key='S'):
+    iRow = 0
+    iCnt = 1
+    print('\n\n**************')
+    if key in 'ST':
+        keyCol1 = xls1.getRolByKey(key)
+        keyCol2 = xls2.getRolByKey(key)
+        for iSCH in keyCol1:
+            try:
+                if keyCol1[iRow] != keyCol2[iRow]:
+                    print('%2d: R:%3d -- 原 :【%s】  ==>【%s】  '\
+                          % (iCnt, iRow, keyCol1[iRow], keyCol2[iRow]))
+                    iCnt += 1
+            except IndexError:
+                print('**************')
+                continue
+            iRow += 1        
+
+    elif key in CodeingMap:   # 简体中文与繁体中文不需要参考
+        ChineseCol = xls1.ChieseCol
+        keyCol1 = xls1.getRolByKey(key)
+        keyCol2 = xls2.getRolByKey(key)
+        for iSCH in ChineseCol:
+            try:
+                if keyCol1[iRow] != keyCol2[iRow]:
+                    print('%2d:中文  【%s】   %c:%03d -- 【%s】 < == 原 :【%s】  '\
+                          % (iCnt, iSCH, key, iRow, keyCol2[iRow], keyCol1[iRow]))
+#                     print('%c%03d\t%s\t%s\t%s'\
+#                           % (key, iRow, iSCH, keyCol1[iRow], keyCol2[iRow]))
+                    iCnt += 1
+            except IndexError:
+                print('**************')
+                continue
+            iRow += 1
+    else:
+        print('\t *** Warning unknow key[%c] ! ****' % (key))
+    print('**************')
+
+
+    
+# 自动生成新架构小彩屏  3.5/3.0 寸语言文件
+def build_NewArch(xlsName, keys):
+    
+    xobj30 = LOBJ.LangageObj(xlsName, CodeingMap, \
+                      os.path.join(DEST_DIR, 'zmm100_tft3'), AppMap, ExclueMap30)
+    xobj35 = LOBJ.LangageObj(xlsName, CodeingMap, \
+                      os.path.join(DEST_DIR, 'zmm100_tft35'), AppMap, ExclueMap35)
+    for key in keys:
+        try:
+            xobj30.ProcOneExcelFile('Build', {key:CodeingMap[key]})
+            xobj35.ProcOneExcelFile('Build', {key:CodeingMap[key]})
+        except KeyError:
+            print('\n\t *** Warning unknow key[%c] ! ****' % (key))
+            continue
+        
+def check_NewArch(xlsName, keys=None):
+    xobj = LOBJ.LangageObj(xlsName, CodeingMap, None, AppMap)
+    xobj.ProcOneExcelFile('Check', keys)
+
 
 def main():
-    for key in CodeingMap:
-        print('LANGUAGE.%s -------------------- [%s]' \
-              % (key, CodeingMap[key].center(12, '-')))
+    
+    while(True):
+        print("\n\n")
+        print("*"*80)
+        print('\t(B)uild :Build New Arch Language obj.')
+        print('\t(C)heck:Check language.xls file format.')
+        print('\t(H)istory:Show history change.')
+        print('\t(Q)uit: exit the console.')
+        keys = input("\n>> Please Choose: ")
+        
+        if keys.lower()[0] == 'q':
+            return
+        elif keys.lower()[0] == 'c':
+            keys = input("--->> Please input the keys you want (C)heck: ")
+            if keys.lower() == "all":
+                check_NewArch(DEST_FILE)
+            else:
+                check_NewArch(DEST_FILE, keys)
+            continue
+        elif keys.lower()[0] == 'b':
+            keys = input("--->> Please input the keys you want (B)uild: ")
+            if keys.lower() == "all":
+                keys = [key for key in CodeingMap]
+            build_NewArch(DEST_FILE, keys)
+        elif keys.lower()[0] == 'h':
+            keys = input("--->> Please input the keys you want show (H)istory: ")
+            if keys.lower() == "all":
+                keys = [key for key in CodeingMap]
+            CmpLanguage(DEST_FILE, DEST_FILE_OLD, keys)
+            
 if __name__ == '__main__':
     main()
-
-if __name__ == '__main__':
-    pass
+    print ('done...')
