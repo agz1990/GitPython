@@ -5,10 +5,10 @@
 <pydev_property name="org.python.pydev.PYTHON_PROJECT_INTERPRETER">Default</pydev_property>
 <pydev_property name="org.python.pydev.PYTHON_PROJECT_VERSION">python 2.7</pydev_property>
 <pydev_pathproperty name="org.python.pydev.PROJECT_SOURCE_PATH">
-<path>/python/trunk</path>
-<path>/python/deamo</path>
-<path>/python/modules</path>
-<path>/python/dependModules</path>
-<path>/python/project</path>
+<path>/GitPython/trunk</path>
+<path>/GitPython/deamo</path>
+<path>/GitPython/modules</path>
+<path>/GitPython/dependModules</path>
+<path>/GitPython/project</path>
 </pydev_pathproperty>
 </pydev_project>

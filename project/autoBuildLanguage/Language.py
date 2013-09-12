@@ -26,7 +26,7 @@ def checkFormat(strline, key):
 
     if not PCheckFormart.match(strline):
         return None
-    if re.search(r''' \s+|\s$''', strline):   # 检查连续空格数据
+    if re.search(r''' \s+|\s$''', strline):  # 检查连续空格数据
 #             print(strline)
         return None
     return True
@@ -35,20 +35,20 @@ class LangageObj():
     def __init__(self, xlsObj, encodingMap, \
                  destPath='.', AppMap={'中文':''}, ExclueMap=[]):
         self.xls = xlsObj
-        self.keymap = encodingMap   # 获取 编码格式对应表
-        self.appmap = AppMap   # 获取要生成文件的对应表
-        self.delmap = ExclueMap   # 不同平台需要排除的字段表
-        self.encodType = 'utf-8'   # 当前语言的编码格式
-        self.curFileName = ''   # 当前语言的文件名字
-        self.curFileObj = None   # 生成当前文件的操作句柄
-        self.key = ''   # 当前语言的  key 值
-        self.col = 65   # 程序运行实时列数 （A）
-        self.row = 0   # 程序运行实时行数
-        self.preLine = ''   # 上一个有效行
-        self.curline = ''   # 当前行
-        self.hint = ''   # 全局提示
-        self.dest = destPath   # 目标生成目标路径
-        self.subdir = 'lang'   # 小写  key 语言的存放路径前缀
+        self.keymap = encodingMap  # 获取 编码格式对应表
+        self.appmap = AppMap  # 获取要生成文件的对应表
+        self.delmap = ExclueMap  # 不同平台需要排除的字段表
+        self.encodType = 'utf-8'  # 当前语言的编码格式
+        self.curFileName = ''  # 当前语言的文件名字
+        self.curFileObj = None  # 生成当前文件的操作句柄
+        self.key = ''  # 当前语言的  key 值
+        self.col = 65  # 程序运行实时列数 （A）
+        self.row = 0  # 程序运行实时行数
+        self.preLine = ''  # 上一个有效行
+        self.curline = ''  # 当前行
+        self.hint = ''  # 全局提示
+        self.dest = destPath  # 目标生成目标路径
+        self.subdir = 'lang'  # 小写  key 语言的存放路径前缀
         self.ChieseCol = self.getRolByKey('S')
 
     def xprint(self):
@@ -61,7 +61,7 @@ class LangageObj():
         Error = None
         try:
             key = 'S'
-            key = cloObj[10][0]
+            key = cloObj[10][-1]
             if key not in self.keymap:
                 self.hint = ('\n\t *** Warning col:%c  Discover a empty col ! ****') \
                 % (chr(self.col))
@@ -72,7 +72,7 @@ class LangageObj():
             self.curFileName = 'LANGUAGE.' + self.key
             return True
 
-        except IndexError:   # 无效列处理
+        except IndexError:  # 无效列处理
             self.hint = ('\n\t *** Warning col:%c  Discover a empty col ! ****')\
              % (chr(self.col))
             return Error
@@ -86,12 +86,12 @@ class LangageObj():
             % (chr(self.col), self.row, aline)
             return False
 
-        schLine = self.ChieseCol[self.row - 1]   # 获取对应的中文列
+        schLine = self.ChieseCol[self.row - 1]  # 获取对应的中文列
         self.hint = ''
         if checkFormat(aline, self.key) is True:
 #             print("->>> ", aline)
 
-            if schLine in self.delmap:   # 排除 Map 中的项
+            if schLine in self.delmap:  # 排除 Map 中的项
                 self.hint = '\t### Warning 【%c:%04d】   exclude 【%s】 ###'\
                  % (chr(self.col), self.row, aline)
                 return False
@@ -99,16 +99,16 @@ class LangageObj():
             # 字符串有效
             line = aline + os.linesep
             try:
-                return  line.encode(self.encodType)   # 把 utf-8 格式转化成指定编码
+                return  line.encode(self.encodType)  # 把 utf-8 格式转化成指定编码
             except UnicodeEncodeError:
                 self.hint = '*** Error 【%c:%04d】  Coding %s 【%s】 ***' % (chr(self.col), self.row, self.encodType, aline)
                 return False
 
-        elif schLine in self.appmap:   # 生成路径控制数据不做处理
+        elif schLine in self.appmap:  # 生成路径控制数据不做处理
             return False
-        elif len(schLine) == 0 :   # 忽略无效行
+        elif len(schLine) == 0 :  # 忽略无效行
             return False
-        elif not checkFormat(schLine, 'S') :   # 排除中文无效项目对应的项
+        elif not checkFormat(schLine, 'S') :  # 排除中文无效项目对应的项
             return False
         else:
             self.hint = '*** Error 【%c:%04d】  Format error  【%s】 ***' \
@@ -120,13 +120,13 @@ class LangageObj():
 #         print(cell)
         if cell in self.appmap:
             try:
-                self.curFileObj.close()   # 关闭前一个文件
+                self.curFileObj.close()  # 关闭前一个文件
 #                 print(' ***  Close a file : 【%c:%04d】  *** '%(chr(self.col),self.row))
             except AttributeError:
-                pass   # 忽略第一个打开
+                pass  # 忽略第一个打开
 
             # 组装文件名
-            if self.key in string.ascii_lowercase:   # 小写key要添加 sub_dir 路径
+            if self.key in string.ascii_lowercase:  # 小写key要添加 sub_dir 路径
                 finalPath = os.path.join(self.dest, self.appmap[cell], self.subdir)
             else:
                 finalPath = os.path.join(self.dest, self.appmap[cell])
@@ -157,7 +157,7 @@ class LangageObj():
                % (chr(self.col), self.encodType, self.key))
         for aline in cloObj:
             self.row = self.row + 1
-            self.upDadeFileObj(self.ChieseCol[self.row - 1])   # 通过中文列 获取需要生成文件的目标
+            self.upDadeFileObj(self.ChieseCol[self.row - 1])  # 通过中文列 获取需要生成文件的目标
             try:
                 retVal = self.checkAndEncodingOneLine(aline)
                 if retVal :
@@ -166,7 +166,7 @@ class LangageObj():
                 else:
                     self.xprint();
             #
-            except AttributeError :   # 忽略文件第一次中文列表，一开始内容  不在  self.appmap 的情况
+            except AttributeError :  # 忽略文件第一次中文列表，一开始内容  不在  self.appmap 的情况
                 continue
         self.row = 0
 
@@ -204,13 +204,13 @@ class LangageObj():
             else:
                 print(' *** Error ProcOneExcelFile:  unknow  proc name [%s]  *** ' % (how))
                 return
-            
+
             self.col = self.col + 1
         self.col = 65
-        
-    
 
-        
+
+
+
     # 通过 key 值获取对应列
     def getRolByKey(self, key, sheetIndex=0):
         for icol in excelPack.getAllColsBySheetIndex(sheetIndex, self.xls):
@@ -237,9 +237,9 @@ def main():
 
 
 
-    
+
 if __name__ == '__main__':
     main()
-    
+
 #     testCmp()
     pass
