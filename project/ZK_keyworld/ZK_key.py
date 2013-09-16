@@ -32,7 +32,7 @@ class ZK_key(object):
             iCont = 0
             for iRoot in self.wordMap[rootKey]:
                 if rootWord == iRoot:
-                    return (iCont, self.wordMap[key][iCont ])
+                    return self.wordMap[key][iCont]
                 iCont += 1
         # 没有对应关键字
         return None
@@ -55,10 +55,17 @@ class ZK_key(object):
              % (chr(self.col))
             return False
 
+    # 通过 key 值获取对应列
+    def GetColByKey(self, key):
+        if key in self.wordMap:
+            return self.wordMap[key]
+        else:
+            return False
+
 def main():
-    keyObj = ZK_key('ZK_keyWords.xls', 'SE')
+    keyObj = ZK_key('ZK_keyWords.xls', 'SH')
     print(keyObj.wordMap)
-    ret = keyObj.GetKeyValue('E', '工号')
+    ret = keyObj.GetKeyValue('H', '工号')
     if ret != None:
         print(ret)
     pass

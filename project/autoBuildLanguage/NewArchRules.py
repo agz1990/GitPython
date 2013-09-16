@@ -6,46 +6,30 @@ Created on 2013年9月8日
 import Language as LOBJ
 import os.path
 
-LANGUAGE_S = 'gb2312'
-LANGUAGE_E = 'utf-8'   # 'cp1252'
-LANGUAGE_T = 'utf-8'   # 'big5'
-LANGUAGE_P = 'utf-8'   # 'cp1252'
-LANGUAGE_a = 'utf-8'   # 'cp1252'
-LANGUAGE_I = 'utf-8'   # 'cp1252'
-LANGUAGE_R = 'utf-8'   # 'cp1251'
-LANGUAGE_F = 'utf-8'   # 'cp1252'
-LANGUAGE_B = 'iso8859_6'
-LANGUAGE_G = 'utf-8'   # 'cp1252'
-LANGUAGE_t = 'utf-8'   # 'cp1254'
-LANGUGAE_L = 'utf-8'
-LANGUAGE_H = 'iso8859_8'
-LANGUAGE_V = 'utf-8'
-LANGUAGE_A = 'iso8859_6'
-
 # 工程路径配置:
 DESK_DIR = r'C:\Users\hp41\Desktop'   # 当前系统桌面路径
-DEST_DIR = r'C:\Users\hp41\Desktop\arm.d'   # 生成目标路径
+# DEST_DIR = r'C:\Users\hp41\Desktop\arm.d'   # 生成目标路径
+DEST_DIR = r'D:\work folder\main_code\firmware3.0\trunk\arm'
 SUB_DIR = 'lang'   # 相对于 ‘DEST_DIR’ 小写语言的目标路径
 DEST_FILE = r'D:\项目\新架构语言项目\自动生成语言包项目\LANGUAGE.xls'   # 生成语言的基准文件
 DEST_FILE_OLD = r'D:\项目\新架构语言项目\自动生成语言包项目\LANGUAGE20130909.R0.xls'   # 旧文件 比较用
-ValidKeys = None   # 要生成的语言 None 默认生成所有语言
 
 CodeingMap = {
-            'S':LANGUAGE_S,
-            'E':LANGUAGE_E,
-            'T':LANGUAGE_T,
-            'P':LANGUAGE_P,
-            'a':LANGUAGE_a,
-            'I':LANGUAGE_I,
-            'R':LANGUAGE_R,
-            'F':LANGUAGE_F,
-            'B':LANGUAGE_B,
-            'G':LANGUAGE_G,
-            't':LANGUAGE_t,
-            'L':LANGUGAE_L,
-            'H':LANGUAGE_H,
-            'V':LANGUAGE_V,
-            'A':LANGUAGE_A,
+            'S':'gb2312',
+            'E':'utf-8',
+            'T':'utf-8',
+#             'P':'utf-8',
+#             'a':'utf-8',
+            'I':'utf-8',
+            'R':'utf-8',
+            'F':'utf-8',
+            'B':'iso8859_6',
+            'G':'utf-8',
+#             't':LANGUAGE_t,
+            'L':'utf-8',
+            'H':'iso8859_8',
+            'V':'utf-8',
+            'A':'utf-8',
             }
 
 ExclueMap35 = [   #    3.5寸屏所需要排除的文件
@@ -138,21 +122,12 @@ def compareXbojs(xls1, xls2, key='S'):
     
 # 自动生成新架构小彩屏  3.5/3.0 寸语言文件
 def build_NewArch(xlsName, keys):
-    
-    xobj30 = LOBJ.LangageObj(xlsName, CodeingMap, \
-                      os.path.join(DEST_DIR, 'zmm100_tft3'), AppMap, ExclueMap30)
-    xobj35 = LOBJ.LangageObj(xlsName, CodeingMap, \
-                      os.path.join(DEST_DIR, 'zmm100_tft35'), AppMap, ExclueMap35)
-    for key in keys:
-        try:
-            xobj30.ProcOneExcelFile('Build', {key:CodeingMap[key]})
-            xobj35.ProcOneExcelFile('Build', {key:CodeingMap[key]})
-        except KeyError:
-            print('\n\t *** Warning unknow key[%c] ! ****' % (key))
-            continue
-        
+    xobj = LOBJ.LangageObj(xlsName, CodeingMap, AppMap)
+    xobj.ProcOneExcelFile('Build', keys, os.path.join(DEST_DIR, 'zmm100_tft35'), ExclueMap35)
+    xobj.ProcOneExcelFile('Build', keys, os.path.join(DEST_DIR, 'zmm100_tft3'), ExclueMap30)
+
 def check_NewArch(xlsName, keys=None):
-    xobj = LOBJ.LangageObj(xlsName, CodeingMap, None, AppMap)
+    xobj = LOBJ.LangageObj(xlsName, CodeingMap, AppMap)
     xobj.ProcOneExcelFile('Check', keys)
 
 
