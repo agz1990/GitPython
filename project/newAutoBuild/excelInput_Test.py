@@ -7,7 +7,6 @@ from excelInput import ExcleInput
 import copy
 import excelPack
 import unittest
-from newAutoBuild import excelInput
 
 xls = 'NewArch.xls';
 oneColFileCnt = 27  # 每列可生成27个文件
