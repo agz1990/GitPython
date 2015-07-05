@@ -12,7 +12,7 @@ import re
 import shutil
 import string
 import tarfile
-from ctypes import *
+from ctypes import windll
 
 
 # line = 'Simple chinese::GB2312'
